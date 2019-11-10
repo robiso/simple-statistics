@@ -280,11 +280,13 @@ class SimpleStatistics {
             $wrapper->appendChild($table);
 
 
+            // Todo: use graphing lib or create class for these graphs
+
             // Little graph for pageviews
 
             $h2 = $doc->createElement("h2");
             $h2->nodeValue = "Pageviews last two weeks";
-            $h2->setAttribute("style", "text-align:center; margin-top:2em");
+            $h2->setAttribute("style", "text-align:center; margin-top:2em; margin-bottom:1em");
             $wrapper->appendChild($h2);
 
             $graph = $doc->createElement("table");
@@ -305,7 +307,9 @@ class SimpleStatistics {
                 $td = $doc->createElement("td");
                 $td->setAttribute("style", "vertical-align:bottom; width:calc(100% / 14)");
                 $div = $doc->createElement("div");
-                $height = $count / max($data) * 150;
+                $height = 0;
+                if(max($data) > 0)
+                    $height = $count / max($data) * 150;
                 $div->setAttribute("style", "position:relative; height:{$height}px; width:100%; background:#1ab; color:#fff; text-align:center");
                 if($height > 18) {
                     $div->nodeValue = $count;
@@ -332,7 +336,7 @@ class SimpleStatistics {
 
             $h2 = $doc->createElement("h2");
             $h2->nodeValue = "Sessions last two weeks";
-            $h2->setAttribute("style", "text-align:center; margin-top:2em");
+            $h2->setAttribute("style", "text-align:center; margin-top:2em; margin-bottom:1em");
             $wrapper->appendChild($h2);
 
             $graph = $doc->createElement("table");
@@ -351,7 +355,9 @@ class SimpleStatistics {
                 $td = $doc->createElement("td");
                 $td->setAttribute("style", "vertical-align:bottom; width:calc(100% / 14)");
                 $div = $doc->createElement("div");
-                $height = $count / max($data) * 150;
+                $height = 0;
+                if(max($data) > 0)
+                    $height = $count / max($data) * 150;
                 $div->setAttribute("style", "position:relative; height:{$height}px; width:100%; background:#1ab; color:#fff; text-align:center");
                 if($height > 18) {
                     $div->nodeValue = $count;
