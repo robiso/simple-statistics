@@ -3,3 +3,5 @@
 [![WonderCMS 3.x.x](https://img.shields.io/badge/WonderCMS-3.x.x-%231ab?style=flat)](https://github.com/robiso/wondercms)
 
 A privacy minded analytics plugin
+
+![](preview.jpg)
