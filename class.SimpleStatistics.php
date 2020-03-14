@@ -100,7 +100,6 @@ class SimpleStatistics {
             return $args;
         }
 
-        //$args[0] .= '<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>';
         return $args[0];
     }
 
@@ -111,9 +110,9 @@ class SimpleStatistics {
         if (in_array($this->Wcms->currentPage, ['favicon-ico', 'robots-txt'])) {
             return $args;
         }
-        // if ($this->CrawlerDetect->isCrawler()) {
-        //     return $args;
-        // }
+        if ($this->CrawlerDetect->isCrawler()) {
+            return $args;
+        }
 
         $count = @$this->get('pageviews', date('d-m-Y'), $this->Wcms->currentPage);
         if (! $count) {
