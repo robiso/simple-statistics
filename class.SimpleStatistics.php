@@ -11,7 +11,8 @@ class SimpleStatistics {
 
     private $db;
 
-    private $dbPath = __DIR__ . '/simplestatistics.json';
+    private $dbPath = __DIR__ . '/../../data/';
+    private $dbFile = 'simplestatistics.json';
 
     private $CrawlerDetect;
 
@@ -25,27 +26,38 @@ class SimpleStatistics {
     }
 
     public function init(): void {
+        $before = memory_get_usage();
         $this->db = $this->getDb();
+        $after = memory_get_usage();
+        $size = $after - $before;
+
+        echo "SIZE $size";
+
+        if ($size > 550000) {
+            rename($this->dbPath . $this->dbFile, $this->dbPath . date('Ymdhis-') . $this->dbFile);
+            echo 'RENAMED!';
+            $this->init();
+        }
     }
 
     private function getDb(): stdClass {
-        if (! file_exists($this->dbPath)) {
-            file_put_contents($this->dbPath, json_encode([
+        if (! file_exists($this->dbPath . $this->dbFile)) {
+            file_put_contents($this->dbPath . $this->dbFile, json_encode([
                     'pageviews' => [],
-                ], JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+            ], JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
         }
 
-        return json_decode(file_get_contents($this->dbPath));
+        return json_decode(file_get_contents($this->dbPath . $this->dbFile));
     }
 
     public function attach(): void {
-        $this->Wcms->addListener('footer', [$this, 'collectData']);
+        $this->Wcms->addListener('js', [$this, 'collectData']);
         $this->Wcms->addListener('settings', [$this, 'alterAdmin']);
     }
 
     private function save(): void {
-        file_put_contents($this->dbPath,
-                json_encode($this->db, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT));
+        file_put_contents($this->dbPath . $this->dbFile,
+                json_encode($this->db, JSON_FORCE_OBJECT | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT), LOCK_EX);
     }
 
     public function set(): void {
@@ -102,9 +114,9 @@ class SimpleStatistics {
         if (in_array($this->Wcms->currentPage, ['favicon-ico', 'robots-txt'])) {
             return $args;
         }
-        if ($this->CrawlerDetect->isCrawler()) {
-            return $args;
-        }
+        // if ($this->CrawlerDetect->isCrawler()) {
+        //     return $args;
+        // }
 
         $count = @$this->get('pageviews', date('d-m-Y'), $this->Wcms->currentPage);
         if (! $count) {
