@@ -31,11 +31,8 @@ class SimpleStatistics {
         $after = memory_get_usage();
         $size = $after - $before;
 
-        echo "SIZE $size";
-
         if ($size > 550000) {
             rename($this->dbPath . $this->dbFile, $this->dbPath . date('Ymdhis-') . $this->dbFile);
-            echo 'RENAMED!';
             $this->init();
         }
     }
