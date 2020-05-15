@@ -134,6 +134,7 @@ class SimpleStatistics {
     public function alterAdmin(array $args): array {
         $doc = new DOMDocument();
         @$doc->loadHTML($args[0]);
+        @$doc->loadHTML(mb_convert_encoding($args[0], 'HTML-ENTITIES', 'UTF-8'));
 
         $menuItem = $doc->createElement('li');
         $menuItem->setAttribute('class', 'nav-item');
