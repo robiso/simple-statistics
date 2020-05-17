@@ -134,6 +134,7 @@ class SimpleStatistics {
     public function alterAdmin(array $args): array {
         $doc = new DOMDocument();
         @$doc->loadHTML($args[0]);
+        @$doc->loadHTML(mb_convert_encoding($args[0], 'HTML-ENTITIES', 'UTF-8'));
 
         $menuItem = $doc->createElement('li');
         $menuItem->setAttribute('class', 'nav-item');
@@ -156,7 +157,7 @@ class SimpleStatistics {
         // Contents of wrapper
 
         $h2 = $doc->createElement('h2');
-        $h2->nodeValue = 'Statistics';
+        $h2->nodeValue = 'Today';
         $h2->setAttribute('style', 'text-align:center');
         $wrapper->appendChild($h2);
 
@@ -217,7 +218,7 @@ class SimpleStatistics {
         $wrapper->appendChild($table);
 
         $h2 = $doc->createElement('h2');
-        $h2->nodeValue = 'Statistics this week';
+        $h2->nodeValue = 'This week';
         $h2->setAttribute('style', 'text-align:center; margin-top:2em');
         $wrapper->appendChild($h2);
 
