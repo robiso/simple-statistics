@@ -158,7 +158,7 @@ class SimpleStatistics {
 
         $h2 = $doc->createElement('h2');
         $h2->nodeValue = 'Today';
-        $h2->setAttribute('style', 'text-align:center');
+        $h2->setAttribute('style', 'text-align:center; color: #ddd');
         $wrapper->appendChild($h2);
 
         $table = $doc->createElement('table');
@@ -219,7 +219,7 @@ class SimpleStatistics {
 
         $h2 = $doc->createElement('h2');
         $h2->nodeValue = 'This week';
-        $h2->setAttribute('style', 'text-align:center; margin-top:2em');
+        $h2->setAttribute('style', 'text-align:center; margin-top:2em; color: #ddd');
         $wrapper->appendChild($h2);
 
         $table = $doc->createElement('table');
@@ -249,7 +249,7 @@ class SimpleStatistics {
         $b->nodeValue = 'Pageviews';
         $td->appendChild($b);
         $div = $doc->createElement('div');
-        $div->setAttribute('style', 'font-size:2em');
+        $div->setAttribute('style', 'font-size:2em; color: #ddd');
         $div->nodeValue = $total;
         $td->appendChild($div);
         $tr->appendChild($td);
@@ -271,7 +271,7 @@ class SimpleStatistics {
         $b->nodeValue = 'Sessions';
         $td->appendChild($b);
         $div = $doc->createElement('div');
-        $div->setAttribute('style', 'font-size:2em');
+        $div->setAttribute('style', 'font-size:2em; color: #ddd');
         $div->nodeValue = $total;
         $td->appendChild($div);
         $tr->appendChild($td);
@@ -297,7 +297,7 @@ class SimpleStatistics {
         $b->nodeValue = 'Most popular page';
         $td->appendChild($b);
         $div = $doc->createElement('div');
-        $div->setAttribute('style', 'font-size:2em');
+        $div->setAttribute('style', 'font-size:2em; ');
         $div->nodeValue = $count;
         $td->appendChild($div);
         $tr->appendChild($td);
@@ -311,7 +311,7 @@ class SimpleStatistics {
 
         $h2 = $doc->createElement('h2');
         $h2->nodeValue = 'Pageviews last two weeks';
-        $h2->setAttribute('style', 'text-align:center; margin-top:2em; margin-bottom:1em');
+        $h2->setAttribute('style', 'text-align:center; margin-top:2em; margin-bottom:1em; color: #ddd');
         $wrapper->appendChild($h2);
 
         $graph = $doc->createElement('table');
@@ -363,11 +363,11 @@ class SimpleStatistics {
 
         $h2 = $doc->createElement('h2');
         $h2->nodeValue = 'Sessions last two weeks';
-        $h2->setAttribute('style', 'text-align:center; margin-top:2em; margin-bottom:1em');
+        $h2->setAttribute('style', 'text-align:center; margin-top:2em; margin-bottom:1em; color: #ddd');
         $wrapper->appendChild($h2);
 
         $graph = $doc->createElement('table');
-        $graph->setAttribute('style', 'width:100%; border-collapse:collapse');
+        $graph->setAttribute('style', 'width:100%; border-collapse:collapse;');
         $tr = $doc->createElement('tr');
         $labels = $doc->createElement('tr');
 
