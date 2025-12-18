@@ -61,20 +61,35 @@ class SimpleStatistics {
         $numArgs = func_num_args();
         $args = func_get_args();
 
-        switch ($numArgs) {
-                case 2:
-                    $this->db->{$args[0]} = $args[1];
-                    break;
-                case 3:
-                    $this->db->{$args[0]}->{$args[1]} = $args[2];
-                    break;
-                case 4:
-                    $this->db->{$args[0]}->{$args[1]}->{$args[2]} = $args[3];
-                    break;
-                case 5:
-                    $this->db->{$args[0]}->{$args[1]}->{$args[2]}->{$args[3]} = $args[4];
-                    break;
+        // Helper to ensure nested objects exist
+        $ensureObject = function(&$obj, $keys) {
+            $current = &$obj;
+            foreach ($keys as $key) {
+                if (!isset($current->$key) || !is_object($current->$key)) {
+                    $current->$key = new stdClass();
+                }
+                $current = &$current->$key;
             }
+            return $current;
+        };
+
+        switch ($numArgs) {
+            case 2:
+                $this->db->{$args[0]} = $args[1];
+                break;
+            case 3:
+                $parent = $ensureObject($this->db, [$args[0]]);
+                $parent->{$args[1]} = $args[2];
+                break;
+            case 4:
+                $parent = $ensureObject($this->db, [$args[0], $args[1]]);
+                $parent->{$args[2]} = $args[3];
+                break;
+            case 5:
+                $parent = $ensureObject($this->db, [$args[0], $args[1], $args[2]]);
+                $parent->{$args[3]} = $args[4];
+                break;
+        }
         $this->save();
     }
 
